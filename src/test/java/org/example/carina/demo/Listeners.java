@@ -1,5 +1,6 @@
 package org.example.carina.demo;
 
+import com.aventstack.extentreports.MediaEntityBuilder;
 import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.markuputils.ExtentColor;
 import com.aventstack.extentreports.markuputils.MarkupHelper;
@@ -7,6 +8,8 @@ import extentReport.ExtentTestManager;
 import org.openqa.selenium.WebDriver;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
+
+import static extentReport.ExtentManager.takeScreenshot;
 
 
 public class Listeners implements ITestListener {
@@ -43,6 +46,11 @@ public class Listeners implements ITestListener {
             e.printStackTrace();
         }
 
+        try {
+            ExtentTestManager.getTest().fail(MediaEntityBuilder.createScreenCaptureFromPath(concatenate+takeScreenshot(testMethodName,driver)).build());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         addExtentLabelToTest(result);
         ExtentTestManager.endTest();
     }

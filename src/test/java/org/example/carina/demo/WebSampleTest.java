@@ -19,7 +19,9 @@ import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
@@ -44,13 +46,22 @@ import org.example.carina.demo.gui.pages.NewsPage;
  * @author qpsdemo
  */
 public class WebSampleTest implements IAbstractTest {
+
+    public WebDriver driver;
+
+    @BeforeTest
+    public void initialize()
+    {
+        driver=getDriver();
+    }
+
     @Test()
     @MethodOwner(owner = "qpsdemo")
     @TestPriority(Priority.P3)
     @TestLabel(name = "feature", value = {"web", "regression"})
     public void testModelSpecs() {
         // Open GSM Arena home page and verify page is opened
-        HomePage homePage = new HomePage(getDriver());
+        HomePage homePage = new HomePage(driver);
         homePage.open();
         Assert.assertTrue(homePage.isPageOpened(), "Home page is not opened");
         
@@ -78,7 +89,7 @@ public class WebSampleTest implements IAbstractTest {
     @TestLabel(name = "feature", value = {"web", "acceptance"})
     public void testCompareModels() {
         // Open GSM Arena home page and verify page is opened
-        HomePage homePage = new HomePage(getDriver());
+        HomePage homePage = new HomePage(driver);
         homePage.open();
         Assert.assertTrue(homePage.isPageOpened(), "Home page is not opened");
         // Open model compare page
@@ -99,7 +110,7 @@ public class WebSampleTest implements IAbstractTest {
     @MethodOwner(owner = "qpsdemo")
     @TestLabel(name = "feature", value = {"web", "acceptance"})
     public void testNewsSearch() {
-        HomePage homePage = new HomePage(getDriver());
+        HomePage homePage = new HomePage(driver);
         homePage.open();
         Assert.assertTrue(homePage.isPageOpened(), "Home page is not opened!");
         
